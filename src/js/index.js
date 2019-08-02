@@ -31,4 +31,14 @@ elements.searchForm.addEventListener('submit', event => {
 	controlSearch();
 });
 
-// const search = new Search('pizza');
+// Event Delegation
+elements.pagination.addEventListener('click', event => {
+	const button = event.target.closest('.page-button');
+	if (button) {
+		const goToPage = Number(button.dataset.goto);
+		console.log(goToPage);
+		searchView.clearRecipeList();
+		searchView.renderRecipeList(state.search.recipes, goToPage);
+	}
+});
+
