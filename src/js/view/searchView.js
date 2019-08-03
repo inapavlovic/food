@@ -70,3 +70,4 @@ export const renderRecipeList = (recipes, currentPage = 1, recipesPerPage = 3) =
 
 	renderButtons(currentPage, recipes.length, recipesPerPage);
 };
+
