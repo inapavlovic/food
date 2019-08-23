@@ -1,4 +1,4 @@
-import { elements } from './share';
+import { elements } from './elements';
 
 
 export const getSearchValue = () => elements.searchField.value;

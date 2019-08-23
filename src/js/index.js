@@ -1,7 +1,7 @@
 import Search from './model/Search';
 import Recipe from './model/Recipe';
 import * as searchView from './view/searchView';
-import { elements } from './view/share';
+import { elements } from './view/elements';
 
 /** Global state of the app
 * - Search
@@ -52,8 +52,6 @@ elements.pagination.addEventListener('click', event => {
 /**
  *  RECIPE CONTROLLER
  */
-
-
 const recipeController = async () => {
 	// Get id from URL
 	const id = window.location.hash.replace('#', '');
@@ -65,6 +63,9 @@ const recipeController = async () => {
 		try {
 			// Get recipe data
 			await state.recipe.getRecipe();
+			// console.log(state.recipe);
+			// Transform data
+			state.recipe.transformIngredients();
 			console.log(state.recipe);
 		} catch (error) {
 			console.log(error);

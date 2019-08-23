@@ -2,7 +2,7 @@
 	"presets": [
 		["@babel/env", {
 					"targets": {
-						"browsers": ["last 1 version"]
+						"browsers": ["last 2 versions"]
 					}
 		}]
 	]
