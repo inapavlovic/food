@@ -21,6 +21,7 @@ export const renderRecipe = recipe => {
 		<ul>
 			${recipe.ingredients.map(element => createIngredient(element)).join('')}
 		</ul>
+		<button class="add-to-shopping-list">Add to shopping list</button>
 	`;
 	elements.recipe.insertAdjacentHTML('afterbegin', markup);
 };

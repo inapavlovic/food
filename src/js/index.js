@@ -1,7 +1,9 @@
 import Search from './model/Search';
 import Recipe from './model/Recipe';
+import List from './model/List';
 import * as searchView from './view/searchView';
 import * as recipeView from './view/recipeView';
+import * as listView from './view/listView';
 import { elements } from './view/elements';
 
 /** Global state of the app
@@ -11,6 +13,7 @@ import { elements } from './view/elements';
 * - Liked recipes
 */
 const state = {};
+// window.state = state;
 
 /**
  *  SEARCH CONTROLLER
@@ -81,4 +84,43 @@ const recipeController = async () => {
 
 // window.addEventListener('hashchange', recipeController);
 ['hashchange', 'load'].forEach( event => window.addEventListener(event, recipeController));
+
+/**
+ *  LIST CONTROLLER
+ */
+const controlList = () => {
+	// Create a new List
+	if (!state.list) state.list = new List();
+	// Add ingredients to the list
+	state.recipe.ingredients.forEach( element => {
+		const item = state.list.addItem(element.count, element.unit, element.ingredient);
+		listView.renderItem(item);
+	});
+}
+
+// Event Delegation
+elements.shoppingList.addEventListener('click', element => {
+	const id = element.target.closest('.shopping-item').dataset.id;
+	if (element.target.matches('.shopping-item-delete')) {
+		// delete from the state
+		state.list.deleteItem(id);
+		// delete from the ui
+		listView.deleteItem(id);
+	} else if (element.target.matches('.count-value')) {
+		const value = parseFloat(element.target.value, 10);
+		// update the state
+		state.list.updateCount(id, value);
+	}
+});
+
+// Event Delegation
+// Handle recipe button click
+elements.recipe.addEventListener('click', event => {
+	if (event.target.matches('.add-to-shopping-list')) {
+		controlList();
+	}
+});
+
+
+
 
