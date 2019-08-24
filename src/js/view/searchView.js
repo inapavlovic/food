@@ -12,6 +12,15 @@ export const clearRecipeList = () => {
 	elements.pagination.innerHTML = '';
 };
 
+export const select = id => {
+	const results = Array.from(document.querySelectorAll('.active'));
+	results.forEach( element => { 
+		// element.classList.remove('active');
+		element.removeAttribute('class');
+	});
+	document.querySelector(`a[href*="${id}"]`).classList.add('active');
+};
+
 const characterLimit = (sentence, limit = 21) => {
 	const newSentence = [];
 	if (sentence.length > limit) {
@@ -59,7 +68,6 @@ const renderButtons = (currentPage, numberOfRecipes, recipesPerPage) => {
 	}
 
 	elements.pagination.insertAdjacentHTML('afterbegin', button);
-
 }
 
 export const renderRecipeList = (recipes, currentPage = 1, recipesPerPage = 3) => {

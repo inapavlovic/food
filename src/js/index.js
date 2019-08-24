@@ -1,6 +1,7 @@
 import Search from './model/Search';
 import Recipe from './model/Recipe';
 import * as searchView from './view/searchView';
+import * as recipeView from './view/recipeView';
 import { elements } from './view/elements';
 
 /** Global state of the app
@@ -42,8 +43,8 @@ elements.searchForm.addEventListener('submit', event => {
 elements.pagination.addEventListener('click', event => {
 	const button = event.target.closest('.page-button');
 	if (button) {
-		const goToPage = Number(button.dataset.goto);
-		console.log(goToPage);
+		const goToPage = ParseInt(button.dataset.goto, 10);
+		// console.log(goToPage);
 		searchView.clearRecipeList();
 		searchView.renderRecipeList(state.search.recipes, goToPage);
 	}
@@ -58,6 +59,8 @@ const recipeController = async () => {
 	console.log(id);
 
 	if (id) {
+		recipeView.clearRecipe();
+		if (state.search) searchView.select(id);
 		// New recipe object
 		state.recipe = new Recipe(id);
 		try {
@@ -67,6 +70,8 @@ const recipeController = async () => {
 			// Transform data
 			state.recipe.transformIngredients();
 			console.log(state.recipe);
+			// Render recipe
+			recipeView.renderRecipe(state.recipe);
 		} catch (error) {
 			console.log(error);
 		}

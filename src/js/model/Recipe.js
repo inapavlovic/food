@@ -21,6 +21,7 @@ export default class Recipe {
 	transformIngredients() {
 		const unitsToReplace = ['ounces', 'ounce', 'cups', 'cup', 'teaspoons', 'teaspoon'];
 		const units = ['oz', 'oz', 'cup', 'cup', 'tsp', 'tsp'];
+		const otherUnits = [...units, 'ml', 'kg', 'g'];
 		const newIngredients = this.ingredients.map( element => {
 			let ingredient = element.toLowerCase();
 			unitsToReplace.forEach((unit, index) => {
@@ -28,7 +29,7 @@ export default class Recipe {
 			});
 			// Transform ingredients into count, unit and ingredient
 			const splitSentence = ingredient.split(' ');
-			const unitIndex = splitSentence.findIndex(el => units.includes(el));
+			const unitIndex = splitSentence.findIndex(el => otherUnits.includes(el));
 
 			let transformIngredient;
 			if (unitIndex > -1) {
